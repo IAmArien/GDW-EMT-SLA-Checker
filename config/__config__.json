@@ -1,0 +1,66 @@
+{
+    "Email-Monitoring": {
+	    "Config-Directory-Name": "config",
+        "Config-File-Extension": ".json",
+        "Email-Contents": ["From: (Address)", "Subject", "To: (Name)", "Body"],
+	    "Excel-File-Extension": [".xlsx", ".xls"],        
+        "Datetime-Format": "%m/%d/%y %H:%M:%S",
+        "Path-To-Scan-Excels": "C:\\Users\\uspaln02\\OneDrive - Ingram Micro\\Desktop\\Norms\\IAmArien\\Updated\\",
+        "Emails": [        
+            "informtp@uschdelinf1001v.corporate.ingrammicro.com",
+            "mgln@uschdelinf1001v.corporate.ingrammicro.com",
+            "control@m",
+            "GDW@ingrammicro.com"
+        ],
+        "Run-Execution": {
+            "Run 4": {"Start-Time": "17:00", "End-Time": "23:00"},
+            "Run 3": {"Start-Time": "17:00", "End-Time": "24:00"},
+            "Run 2": {"Start-Time": "17:00", "End-Time": "03:00"},
+            "Run 1": {"Start-Time": "17:00", "End-Time": "08:00"}
+        },        
+        "GDW@ingrammicro.com": {
+            "Start-Key-Search": [
+                "Startup job",
+                "Vendor Job Started",
+                "Customer Job Started"
+            ],
+            "End-Key-Search": [
+                "Shutdown job",
+                "Vendor Job Loaded",
+                "Customer Job Loaded"
+            ],
+            "Applications": [
+                "IMP", "SAP", "IFS"
+            ],
+            "Identifier": [
+                "completed successfully"
+            ],
+            "LET-Format": ["%m/%d/%y %H:%M:%S"]
+        },
+        "Regions": {            
+            "North America": {
+                "FT": ["FT"],
+                "MD": ["MD"]
+            },
+            "Europe": {
+                "DE": ["AT", "DE", "CH"],
+                "DK": ["DK", "X3", "Z3", "FI", "X4", "Z4"],
+                "ES": ["ES", "X1", "F1"],
+                "FR": ["FR", "X1", "Z1"],
+                "IT": ["IT", "X2", "Z2"],
+                "NO": ["NO", "X5", "Z5"],
+                "SE": ["HU", "SE", "X0", "Z0"]
+            },
+            "Latin America": {
+                "LA": ["AR", "BR", "BP", "V6", "PE"],
+                "MX": ["MX"]
+            },
+            "Middle East": {
+                "ME": ["IA", "BI", "LK"]
+            },
+            "Asia Pacific": {
+                "AP": ["AU", "CN", "EH"]
+            }
+        }
+    }
+}
