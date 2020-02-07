@@ -1,66 +1,157 @@
 {
     "Email-Monitoring": {
 	    "Config-Directory-Name": "config",
-        "Config-File-Extension": ".json",
-        "Email-Contents": ["From: (Address)", "Subject", "To: (Name)", "Body"],
-	    "Excel-File-Extension": [".xlsx", ".xls"],        
+        "Config-File-Extension": ".json",        
+        "Email-Contents": ["From", "Subject", "Time", "Body"],
+	    "Excel-File-Extension": [".xlsx"],        
         "Datetime-Format": "%m/%d/%y %H:%M:%S",
-        "Path-To-Scan-Excels": "C:\\Users\\uspaln02\\OneDrive - Ingram Micro\\Desktop\\Norms\\IAmArien\\Updated\\",
-        "Emails": [        
-            "informtp@uschdelinf1001v.corporate.ingrammicro.com",
-            "mgln@uschdelinf1001v.corporate.ingrammicro.com",
-            "control@m",
-            "GDW@ingrammicro.com"
-        ],
-        "Run-Execution": {
-            "Run 4": {"Start-Time": "17:00", "End-Time": "23:00"},
-            "Run 3": {"Start-Time": "17:00", "End-Time": "24:00"},
-            "Run 2": {"Start-Time": "17:00", "End-Time": "03:00"},
-            "Run 1": {"Start-Time": "17:00", "End-Time": "08:00"}
-        },        
-        "GDW@ingrammicro.com": {
-            "Start-Key-Search": [
-                "Startup job",
-                "Vendor Job Started",
-                "Customer Job Started"
-            ],
-            "End-Key-Search": [
-                "Shutdown job",
-                "Vendor Job Loaded",
-                "Customer Job Loaded"
-            ],
-            "Applications": [
-                "IMP", "SAP", "IFS"
-            ],
-            "Identifier": [
-                "completed successfully"
-            ],
-            "LET-Format": ["%m/%d/%y %H:%M:%S"]
-        },
-        "Regions": {            
-            "North America": {
-                "FT": ["FT"],
-                "MD": ["MD"]
-            },
-            "Europe": {
-                "DE": ["AT", "DE", "CH"],
-                "DK": ["DK", "X3", "Z3", "FI", "X4", "Z4"],
-                "ES": ["ES", "X1", "F1"],
-                "FR": ["FR", "X1", "Z1"],
-                "IT": ["IT", "X2", "Z2"],
-                "NO": ["NO", "X5", "Z5"],
-                "SE": ["HU", "SE", "X0", "Z0"]
-            },
-            "Latin America": {
-                "LA": ["AR", "BR", "BP", "V6", "PE"],
-                "MX": ["MX"]
-            },
-            "Middle East": {
-                "ME": ["IA", "BI", "LK"]
-            },
-            "Asia Pacific": {
-                "AP": ["AU", "CN", "EH"]
+        "Path-To-Scan-Excels": "C:\\Users\\uspaln02\\OneDrive - Ingram Micro\\Desktop\\Norms\\IAmArien\\sla\\Excels",
+        "Accounts": { 
+            "informtp@uschdelinf1001v.corporate.ingrammicro.com": {},
+            "mgln@uschdelinf1001v.corporate.ingrammicro.com": {},
+            "control@m": {},
+            "GDW@ingrammicro.com": {
+                "Datetime-Format": "%m/%d/%y %H:%M:%S",
+                "Datetime-Tokens": {
+                    "1": {
+                        "Date-Regex": "\\d{2}/\\d{2}/\\d{2}",
+                        "Time-Regex": "\\d{2}:\\d{2}:\\d{2}"
+                    }
+                },                
+                "GDW-Runs": {
+                    "Run 4": {
+                        "IMP": {
+                            "GDWD2400": {"Start": "2:54:00"},
+                            "GDWD2499": {"Completed": "5:35:00",
+                            "SLA": "11:00:00"}},
+                        "SAP": {
+                            "GDWD3400": {"Start": "2:54:00"},
+                            "GDWD3499": {"Completed": "5:36:00",
+                            "SLA": "09:00:00"}}
+                    },
+                    "Run 3": {
+                        "IFS": {
+                            "GDWD1300": {"Start": "2:54:00"},
+                            "GDWD1399": {"Completed": "11:08:00",
+                            "SLA": "16:00:00"}},
+                        "IFS-AE": {
+                            "GDWD1399AE": {"Completed": "11:00:00",
+                            "SLA": "16:00:00"}
+                        }
+                    },                    
+                    "Run 2": {
+                        "IFS": {
+                            "GDWD1200": {"Start": "2:54:00"},
+                            "GDWD1299": {"Completed": "11:14:00",
+                            "SLA": "18:00:00"}},
+                        "IMP": {
+                            "GDWD2200": {"Start": "2:38:00"},
+                            "GDWD2299": {"Completed": "8:39:00",
+                            "SLA": "16:00:00"}},
+                        "SAP": {
+                            "GDWD3200": {"Start": "2:54:00"},
+                            "GDWD3299": {"Completed": "9:33:00",
+                            "SLA": "13:30:00"}}
+                    },
+                    "Run 1": {
+                        "IFS": {
+                            "GDWD1100": {"Start": "2:54:00"},
+                            "GDWD1199": {"Completed": "17:42:00",
+                            "SLA": "01:00:00"}},
+                        "IMP": {
+                            "GDWD2100": {"Start": "2:54:00"},
+                            "GDWD2199": {"Completed": "20:19:00",
+                            "SLA": "11:59:00"}},
+                        "SAP": {
+                            "GDWD3100": {"Start": "2:54:00"},
+                            "GDWD3199": {"Completed": "19:32:00",
+                            "SLA": "21:30:00"}}
+                    }
+                },
+                "Key-Sources": {
+                    "IFS": {
+                        "Jobs": {
+                            "Start": {
+                                "GDWD1300": {"RUN_NMBR": "Run 3"},
+                                "GDWD1200": {"RUN_NMBR": "Run 2"},
+                                "GDWD1100": {"RUN_NMBR": "Run 1"}},
+                            "Completed": {
+                                "GDWD1399": {"RUN_NMBR": "Run 3"},
+                                "GDWD1299": {"RUN_NMBR": "Run 2"},
+                                "GDWD1199": {"RUN_NMBR": "Run 1"}
+                            }
+                        }
+                    },
+                    "IMP": {
+                        "Jobs": {
+                            "Start": {
+                                "GDWD2400": {"RUN_NMBR": "Run 4"},
+                                "GDWD2200": {"RUN_NMBR": "Run 2"},
+                                "GDWD2100": {"RUN_NMBR": "Run 1"}},
+                            "Completed": {
+                                "GDWD2499": {"RUN_NMBR": "Run 4"},
+                                "GDWD2299": {"RUN_NMBR": "Run 2"},
+                                "GDWD2199": {"RUN_NMBR": "Run 1"}}
+                        }
+                    },
+                    "SAP": {
+                        "Jobs": {
+                            "Start": {
+                                "GDWD3400": {"RUN_NMBR": "Run 4"},
+                                "GDWD3200": {"RUN_NMBR": "Run 2"},
+                                "GDWD3100": {"RUN_NMBR": "Run 1"}},
+                            "Completed": {
+                                "GDWD3499": {"RUN_NMBR": "Run 4"},
+                                "GDWD3299": {"RUN_NMBR": "Run 2"},
+                                "GDWD3199": {"RUN_NMBR": "Run 1"}}
+                        }
+                    },
+                    "IFS-AE": {
+                        "Jobs": {
+                            "Completed": {
+                                "GDWD1399AE": {"RUN_NMBR": "Run 3"}
+                            }
+                        }
+                    }
+                },
+                "Models": {
+                    "GDW-IFS-Job-Exec-General": {
+                        "Dependencies": {"Key-Sources": "IFS"},
+                        "Start": ["Startup job of IFS Run 3 completed successfully", "Startup job of IFS Run 2 completed successfully", "Startup job of IFS Run 1 completed successfully"],
+                        "Completed": ["Shutdown job IFS Run 3 completed successfully", "Shutdown job IFS Run 2 completed successfully", "Shutdown job IFS Run 1 completed successfully"]
+                    },
+                    "GDW-IMP-Job-Exec-General": {
+                        "Dependencies": {"Key-Sources": "IMP"},
+                        "Start": ["Startup job of IMP Run 4 completed successfully", "Startup job of IMP Run 2 completed successfully", "Startup job of IMP Run 1 completed successfully"],
+                        "Completed": ["Shutdown job IMP Run 4 completed successfully", "Shutdown job IMP Run 2 completed successfully", "Shutdown job IMP Run 1 completed successfully"]
+                    },
+                    "GDW-SAP-Job-Exec-General": {
+                        "Dependencies": {"Key-Sources": "SAP"},
+                        "Start": ["Startup job of IMP Run 4 completed successfully", "Startup job of IMP Run 2 completed successfully", "Startup job of IMP Run 1 completed successfully"],
+                        "Completed": ["Shutdown job IMP Run 4 completed successfully", "Shutdown job IMP Run 2 completed successfully", "Shutdown job IMP Run 1 completed successfully"]
+                    },
+                    "GDW-IFS-AE-Job-Exec": {
+                        "Dependencies": {"Key-Sources": "IFS-AE"},
+                        "Start": [],
+                        "Completed": ["Shutdown job of IFS Run 3 - AE region is completed successfully"]
+                    },
+                    "GDW-IFS-SK-Job-Exec": {
+                        "Dependencies": {"Key-Sources": "IFS"},
+                        "Start": [],
+                        "Completed": ["Shutdown job of IFS Run 2 - SK region is completed successfully"]
+                    },
+                    "GDW-IFS-PT-Job-Exec": {
+                        "Dependencies": {"Key-Sources": "IFS"},
+                        "Start": [],
+                        "Completed": ["Shutdown job of IFS Run 2 - PT region is completed successfully"]
+                    },
+                    "GDW-IFS-AWSGDW-Job-Exec": {
+                        "Dependencies": {"Key-Sources": "IFS"},
+                        "Start": [],
+                        "Completed": ["Shutdown job of AWSGDW IFS Run 2 completed successfully"]
+                    }
+                }                               
             }
-        }
+        }                
     }
 }
