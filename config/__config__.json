@@ -17,55 +17,55 @@
                         "Date-Regex": "\\d{2}/\\d{2}/\\d{2}",
                         "Time-Regex": "\\d{2}:\\d{2}:\\d{2}"
                     }
-                },                
-                "GDW-Runs": {
+                },
+                "Job-Runs": {
                     "Run 4": {
                         "IMP": {
-                            "GDWD2400": {"Start": "2:54:00"},
-                            "GDWD2499": {"Completed": "5:35:00",
-                            "SLA": "11:00:00"}},
+                            "GDWD2400": {"Start": "10:54:00"},
+                            "GDWD2499": {"Completed": "13:35:00",
+                            "SLA": "19:00:00"}},
                         "SAP": {
-                            "GDWD3400": {"Start": "2:54:00"},
-                            "GDWD3499": {"Completed": "5:36:00",
-                            "SLA": "09:00:00"}}
+                            "GDWD3400": {"Start": "10:54:00"},
+                            "GDWD3499": {"Completed": "13:36:00",
+                            "SLA": "17:00:00"}}
                     },
                     "Run 3": {
                         "IFS": {
-                            "GDWD1300": {"Start": "2:54:00"},
-                            "GDWD1399": {"Completed": "11:08:00",
-                            "SLA": "16:00:00"}},
+                            "GDWD1300": {"Start": "10:54:00"},
+                            "GDWD1399": {"Completed": "19:08:00",
+                            "SLA": "00:00:00"}},
                         "IFS-AE": {
-                            "GDWD1399AE": {"Completed": "11:00:00",
-                            "SLA": "16:00:00"}
+                            "GDWD1399AE": {"Completed": "19:08:00",
+                            "SLA": "00:00:00"}
                         }
                     },                    
                     "Run 2": {
                         "IFS": {
-                            "GDWD1200": {"Start": "2:54:00"},
-                            "GDWD1299": {"Completed": "11:14:00",
-                            "SLA": "18:00:00"}},
+                            "GDWD1200": {"Start": "10:54:00"},
+                            "GDWD1299": {"Completed": "19:14:00",
+                            "SLA": "02:00:00"}},
                         "IMP": {
-                            "GDWD2200": {"Start": "2:38:00"},
-                            "GDWD2299": {"Completed": "8:39:00",
-                            "SLA": "16:00:00"}},
+                            "GDWD2200": {"Start": "10:38:00"},
+                            "GDWD2299": {"Completed": "16:39:00",
+                            "SLA": "00:30:00"}},
                         "SAP": {
-                            "GDWD3200": {"Start": "2:54:00"},
-                            "GDWD3299": {"Completed": "9:33:00",
-                            "SLA": "13:30:00"}}
+                            "GDWD3200": {"Start": "10:54:00"},
+                            "GDWD3299": {"Completed": "5:33:00",
+                            "SLA": "21:00:00"}}
                     },
                     "Run 1": {
                         "IFS": {
-                            "GDWD1100": {"Start": "2:54:00"},
-                            "GDWD1199": {"Completed": "17:42:00",
-                            "SLA": "01:00:00"}},
+                            "GDWD1100": {"Start": "10:54:00"},
+                            "GDWD1199": {"Completed": "9:42:00",
+                            "SLA": "09:00:00"}},
                         "IMP": {
-                            "GDWD2100": {"Start": "2:54:00"},
-                            "GDWD2199": {"Completed": "20:19:00",
-                            "SLA": "11:59:00"}},
+                            "GDWD2100": {"Start": "10:54:00"},
+                            "GDWD2199": {"Completed": "4:19:00",
+                            "SLA": "08:00:00"}},
                         "SAP": {
-                            "GDWD3100": {"Start": "2:54:00"},
-                            "GDWD3199": {"Completed": "19:32:00",
-                            "SLA": "21:30:00"}}
+                            "GDWD3100": {"Start": "10:54:00"},
+                            "GDWD3199": {"Completed": "3:32:00",
+                            "SLA": "5:30:00"}}
                     }
                 },
                 "Key-Sources": {
@@ -113,42 +113,42 @@
                             }
                         }
                     }
-                },
+                },                
                 "Models": {
                     "GDW-IFS-Job-Exec-General": {
                         "Dependencies": {"Key-Sources": "IFS"},
-                        "Start": ["Startup job of IFS Run 3 completed successfully", "Startup job of IFS Run 2 completed successfully", "Startup job of IFS Run 1 completed successfully"],
-                        "Completed": ["Shutdown job IFS Run 3 completed successfully", "Shutdown job IFS Run 2 completed successfully", "Shutdown job IFS Run 1 completed successfully"]
+                        "Start": ["Startup job of IFS Run 3", "Startup job of IFS Run 2", "Startup job of IFS Run 1"],
+                        "Completed": ["Shutdown job IFS Run 3", "Shutdown job IFS Run 2", "Shutdown job IFS Run 1"]
                     },
                     "GDW-IMP-Job-Exec-General": {
                         "Dependencies": {"Key-Sources": "IMP"},
-                        "Start": ["Startup job of IMP Run 4 completed successfully", "Startup job of IMP Run 2 completed successfully", "Startup job of IMP Run 1 completed successfully"],
-                        "Completed": ["Shutdown job IMP Run 4 completed successfully", "Shutdown job IMP Run 2 completed successfully", "Shutdown job IMP Run 1 completed successfully"]
+                        "Start": ["Startup job of IMP Run 4", "Startup job of IMP Run 2", "Startup job of IMP Run 1"],
+                        "Completed": ["Shutdown job IMP Run 4", "Shutdown job IMP Run 2", "Shutdown job IMP Run 1"]
                     },
                     "GDW-SAP-Job-Exec-General": {
                         "Dependencies": {"Key-Sources": "SAP"},
-                        "Start": ["Startup job of IMP Run 4 completed successfully", "Startup job of IMP Run 2 completed successfully", "Startup job of IMP Run 1 completed successfully"],
-                        "Completed": ["Shutdown job IMP Run 4 completed successfully", "Shutdown job IMP Run 2 completed successfully", "Shutdown job IMP Run 1 completed successfully"]
+                        "Start": ["Startup job of IMP Run 4", "Startup job of IMP Run 2", "Startup job of IMP Run 1"],
+                        "Completed": ["Shutdown job IMP Run 4", "Shutdown job IMP Run 2", "Shutdown job IMP Run 1"]
                     },
                     "GDW-IFS-AE-Job-Exec": {
                         "Dependencies": {"Key-Sources": "IFS-AE"},
                         "Start": [],
-                        "Completed": ["Shutdown job of IFS Run 3 - AE region is completed successfully"]
+                        "Completed": ["Shutdown job of IFS Run 3 - AE region"]
                     },
                     "GDW-IFS-SK-Job-Exec": {
                         "Dependencies": {"Key-Sources": "IFS"},
                         "Start": [],
-                        "Completed": ["Shutdown job of IFS Run 2 - SK region is completed successfully"]
+                        "Completed": ["Shutdown job of IFS Run 2 - SK region"]
                     },
                     "GDW-IFS-PT-Job-Exec": {
                         "Dependencies": {"Key-Sources": "IFS"},
                         "Start": [],
-                        "Completed": ["Shutdown job of IFS Run 2 - PT region is completed successfully"]
+                        "Completed": ["Shutdown job of IFS Run 2 - PT region"]
                     },
                     "GDW-IFS-AWSGDW-Job-Exec": {
                         "Dependencies": {"Key-Sources": "IFS"},
                         "Start": [],
-                        "Completed": ["Shutdown job of AWSGDW IFS Run 2 completed successfully"]
+                        "Completed": ["Shutdown job of AWSGDW IFS Run 2"]
                     }
                 }                               
             }
