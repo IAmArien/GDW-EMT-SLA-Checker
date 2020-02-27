@@ -1,5 +1,7 @@
 # Ingram-Micro-SLA-Auditor
 
+![image](https://user-images.githubusercontent.com/45601866/75427025-b83e5480-5980-11ea-9577-5fd5932db8b9.png)
+
 <b>SLA Checker Tool</b> and <b>Email Monitoring Script</b> built in <b>Python</b>, is a script to monitor emails in a certain corporation and be able to keep track of server jobs and scripts and validate their SLA (Service Level Agreement) in an SSH Server, to check if a certain job when executed get passed on time or not.
 The script is capable of generating a reports that can be easily understand. Below are the following formats of reports the script is capable of ..
 <ul>
