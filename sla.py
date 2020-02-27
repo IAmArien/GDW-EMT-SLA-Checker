@@ -8,8 +8,9 @@ from bind import Contents
 from bind import Email_Config
 from pst import PST
 from conf import Conf
+from email import Email
 from os import path, listdir
-from os import getcwd, chdir
+from os import getcwd, chdir, mkdir
 from openpyxl import load_workbook
 from datetime import datetime
 from csv import writer
@@ -62,7 +63,6 @@ def progressbar(it, prefix="", size=60, file=system.stdout):
     file.write("\n")
     file.flush()
 
-
 # ---------------------------------------------------------------
 # START OF THE PROGRAM# Email Monitoring and SLA Checker Tool using Python 3.8
 # == GLOBAL DATA WAREHOUSE ==
@@ -110,7 +110,8 @@ for each_files in listdir(path=path_to_scan):
     hierarchy = []
     headers=["Job", "Key Search", "Datetime Received (PST)", "Process", "Average Start/End (Time)", "Average Start/End (Bool)", "SLA (Time)", "SLA (Bool)"]
     logs_array.append(headers) 
-    temp_logs_arrays = []       
+    temp_logs_arrays = []
+    total_job_counter = 0
     for sheets in work_book.sheetnames:
         work_sheet = work_book[sheets]
         excel_columns = content_checker.yield_excel_columns(work_sheet, work_sheet.max_column)
@@ -133,7 +134,8 @@ for each_files in listdir(path=path_to_scan):
             log = conf.collect_valid_email_body(current_datetime=configures["standard_pt"], email_contents=email_contents, valid_emails_list=configures["emails"], configuration_file=config_file)
             if log != None:                
                 if log[0] == 'Complete':
-                    temp_array = []                    
+                    temp_array = []
+                    # print(log[1])
                     dict_logs = conf.validate_job_loads([dict(log[1]), config_file])
                     if dict_logs != None:
                         # print(dict_logs[0])
@@ -142,20 +144,58 @@ for each_files in listdir(path=path_to_scan):
                         for each_temp in dict_logs:
                             temp_array.append(dict_logs[each_temp])
                         logs_array.append(temp_array)
-                        # outlook = win32.Dispatch('outlook.application')
-                        # mail = outlook.CreateItem(0)
-                        # mail.To = 'Troy.Cabrera@ingrammicro.com'
-                        # mail.Subject = temp_array[2]
-                        # mail.Body = temp_array[1]
-                        # mail.Send()                        
-            #time.sleep(0.00000000001)
-    with open("R_HIER_L_%s_LOGS.txt" % path.splitext(each_files)[0], "a+", newline='', encoding="utf-8") as hierarchy_logs:
+                        total_job_counter = total_job_counter + 1
+
+            time.sleep(0.00000000001)
+    work_book.save(filename=each_files)
+
+    if not path.isdir("Reports"):
+        mkdir("Reports")
+
+    with open(r"Reports\R_HIER_L_%s_LOGS.txt" % path.splitext(each_files)[0], "w+", newline='', encoding="utf-8") as hierarchy_logs:
         hierarchy_logs.write(str(conf.hierarchy_structures(hierarchy, "GDWD0000")))
         hierarchy_logs.close()    
-    with open("R_CSV_L_%s_LOGS.csv" % path.splitext(each_files)[0], "a+", newline='', encoding="utf-8") as output_logs:
+    with open(r"Reports\R_CSV_L_%s_LOGS.csv" % path.splitext(each_files)[0], "a+", newline='', encoding="utf-8") as output_logs:
         csv_writer = writer(output_logs)
         csv_writer.writerows(logs_array)
+        output_logs.close()    
+    with open(r"Reports\LOG_REPORTS_%s_%s.csv" % (path.splitext(each_files)[0], "".join(str(datetime.now()).split(" ")[0].split("-"))), "a+", newline='', encoding="utf-8") as log_reports:
+        csv_writer = writer(log_reports)
+        csv_writer.writerows([["Email", "Subject", "Time", "Body", "Checked", "In Time"]])
+        log_reports.close()
+
+    rows = 2
+    total_success = 0
+    total_fail = 0
+    total_missing = 0
+    late_jobs = ""
+    missing_jobs = ""
+
+    email_sys = Email(
+        recv_email="Troy.Cabrera@ingrammicro.com",
+        report_csv="LOG_REPORTS_%s_%s.csv" % (path.splitext(each_files)[0], "".join(str(datetime.now()).split(" ")[0].split("-"))),
+        late_jobs=late_jobs,
+        missing_jobs=missing_jobs,
+        var_conf=dict(total_success=total_success, total_fail=total_fail, total_missing=total_missing)
+    )
+
+    for sheets in work_book.sheetnames:
+        if sheets == "Checklist":
+            sheet = work_book['Checklist']
+            mr = sheet.max_row
+            ms_jobs = email_sys.yield_missing_jobs(max_row=mr, sheet=sheet)
+            if ms_jobs:
+                missing_jobs = ms_jobs["missing_jobs"]
+                total_missing = ms_jobs["total_missing"]
+        else:
+            sheet = work_book[sheets]
+            fl_jobs = email_sys.yield_late_jobs(max_row=sheet.max_row, sheet=sheet, rows=rows)
+            if fl_jobs:
+                late_jobs = fl_jobs["late_jobs"]
+                total_fail = fl_jobs["total_fail"]
     
-    time.sleep(3)
+    late_jobs = email_sys.yield_jobs_headers(total_fail=total_fail, total_missing=total_missing)
+    email_body = email_sys.construct_email_body(total_job_counter=total_job_counter)
+    email_sys.send_email(email_body=email_body, subject="Email Monitoring Report")
 
 
