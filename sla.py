@@ -172,7 +172,7 @@ for each_files in listdir(path=path_to_scan):
     missing_jobs = ""
 
     email_sys = Email(
-        recv_email="Troy.Cabrera@ingrammicro.com",
+        recv_email="Troy.Cabrera@email.com",
         report_csv="LOG_REPORTS_%s_%s.csv" % (path.splitext(each_files)[0], "".join(str(datetime.now()).split(" ")[0].split("-"))),
         late_jobs=late_jobs,
         missing_jobs=missing_jobs,
