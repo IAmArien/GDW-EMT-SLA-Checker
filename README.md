@@ -24,4 +24,5 @@ Below is the sample of Email Report that the script will generate.<br/>
 Below is also the type of report the script can generate in a <b>CSV</b> Format.<br/>
 <b>Figure 1.3</b>
 
-![image](https://user-images.githubusercontent.com/45601866/75426798-567dea80-5980-11ea-9793-16936abc64b3.png)
+![dasdasdasd](https://user-images.githubusercontent.com/45601866/75427846-32bba400-5982-11ea-8b7c-48d2ced4f421.png)
+
