@@ -18,3 +18,8 @@ Below is the sample of Email Report that the script will generate.<br/>
 
 ![image](https://user-images.githubusercontent.com/45601866/75426621-06068d00-5980-11ea-9754-45f454284307.png)
 
+<b>CSV Report</b><br/>
+Below is also the type of report the script can generate in a <b>CSV</b> Format.<br/>
+<b>Figure 1.3</b>
+
+![image](https://user-images.githubusercontent.com/45601866/75426798-567dea80-5980-11ea-9793-16936abc64b3.png)
