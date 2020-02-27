@@ -7,10 +7,7 @@
         "Datetime-Format": "%m/%d/%y %H:%M:%S",
         "Path-To-Scan-Excels": "\\Excels",
         "Accounts": { 
-            "informtp@uschdelinf1001v.corporate.ingrammicro.com": {},
-            "mgln@uschdelinf1001v.corporate.ingrammicro.com": {},
-            "control@m": {},
-            "GDW@ingrammicro.com": {
+            "GDW@email.com": {
                 "Datetime-Format": "%m/%d/%y %H:%M:%S",
                 "Datetime-Tokens": {
                     "1": {
