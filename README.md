@@ -1,4 +1,4 @@
-# Ingram-Micro-SLA-Auditor
+# IngramMicro SLA Checker and Email Monitoring Tool
 
 ![image](https://user-images.githubusercontent.com/45601866/75427025-b83e5480-5980-11ea-9577-5fd5932db8b9.png)
 
