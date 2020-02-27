@@ -52,7 +52,7 @@ class Conf(object):
                 return ('Error', 'Invalid Email')
 
     def validate_job_loads(self, container: list) -> tuple:
-        if container[0]["email-address"] == "GDW@ingrammicro.com":
+        if container[0]["email-address"] == "GDW@email.com":
             return self.load_gdw_configurations(container[0], container[1], "Dependencies", "Key-Sources")
 
     @staticmethod
