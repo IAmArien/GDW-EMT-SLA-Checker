@@ -9,9 +9,10 @@ The script is capable of generating a reports that can be easily understand. Bel
 </ul>
 
 <b>Email Monitoring Report</b><br/>
-Below is the sample of Email Report that the script will generate.
+Below is the sample of Email Report that the script will generate.<br/>
 Figure 1.1
 ![image](https://user-images.githubusercontent.com/45601866/75426507-c6d83c00-597f-11ea-98b9-e62faec3c1d0.png)
+
 Figure 1.2
 ![image](https://user-images.githubusercontent.com/45601866/75426621-06068d00-5980-11ea-9754-45f454284307.png)
 
