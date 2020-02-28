@@ -109,18 +109,6 @@ class Conf(object):
                                         if source[each_source][each_run_nmbrs] == ext_runs:
                                             job_attrib = source[each_source][each_run_nmbrs]
                                             job_name = each_source
-                                jobo_name = configur_file["Email-Monitoring"]["Accounts"][em_add]["Job-Runs"][job_attrib][dependency_label]                                
-                                for each_job in jobo_name:
-                                    for counter in range(2,checksheet.max_row):
-                                        if each_job == checksheet.cell(row=counter, column=2).value:
-                                            if checksheet.cell(row=counter, column=5).value is not None:
-                                                temp_date = datetime.strptime(str(checksheet.cell(row=counter, column=5).value).split(".")[0], '%Y-%m-%d %H:%M:%S')
-                                                if let >= temp_date:
-                                                    checksheet["E"+str(counter)] = let
-                                            else:
-                                                checksheet["E"+str(counter)] = let
-                                            checksheet["F"+str(counter)] = datetime.now()
-                                            break
                                 gdw_runs = configur_file["Email-Monitoring"]["Accounts"][em_add]["Job-Runs"][job_attrib][dependency_label][job_name]
                                 __email__struct = {}
                                 for each_time in gdw_runs:
@@ -141,6 +129,19 @@ class Conf(object):
                                         sheet["E"+str(rowvalue)] = "1"
                                     if(sheet.cell(row=rowvalue, column=6).value is None):
                                         sheet["F"+str(rowvalue)] = str(intime)
+
+                                    for counter in range(2,checksheet.max_row):
+                                        checklist_job_name = checksheet.cell(row=counter, column=2).value
+                                        if job_name == checklist_job_name:
+                                            job_name_last_run = checksheet.cell(row=counter, column=5).value
+                                            if job_name_last_run is not None:
+                                                temp_date = datetime.strptime(str(checksheet.cell(row=counter, column=5).value).split(".")[0], '%Y-%m-%d %H:%M:%S')
+                                                if let >= temp_date:
+                                                    checksheet["E"+str(counter)] = let  
+                                            else:
+                                                checksheet["E"+str(counter)] = let
+                                            checksheet["F"+str(counter)] = datetime.now()
+                                            break  
 
                                     if not each_time == "SLA":
                                         if let <= convert_datetime:
