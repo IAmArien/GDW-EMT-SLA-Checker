@@ -52,11 +52,20 @@ class Conf(object):
                 return ('Error', 'Invalid Email')
 
     def validate_job_loads(self, container: list) -> tuple:
-        if container[0]["email-address"] == "GDW@email.com":
-            return self.load_gdw_configurations(container[0], container[1], "Dependencies", "Key-Sources")
+        if container[0]["email-address"] == "GDW@ingrammicro.com":
+            return self.load_gdw_configurations(
+                dict_logs=container[0], 
+                configur_file=container[1], 
+                depd_key="Dependencies", 
+                key_src="Key-Sources",
+                rowvalue=container[2],
+                work_book=container[3]
+            )
 
     @staticmethod
-    def load_gdw_configurations(dict_logs: dict, configur_file: dict, depd_key: str, key_src: str) -> tuple:
+    def load_gdw_configurations(dict_logs: dict, configur_file: dict, depd_key: str, key_src: str, rowvalue: int, work_book: object) -> tuple:        
+        sheet = work_book['Jobs']
+        checksheet = work_book['Checklist']
         if depd_key in dict_logs:
             if key_src in dict_logs[depd_key]:
                 dependency_label = dict_logs[depd_key][key_src]
@@ -100,6 +109,18 @@ class Conf(object):
                                         if source[each_source][each_run_nmbrs] == ext_runs:
                                             job_attrib = source[each_source][each_run_nmbrs]
                                             job_name = each_source
+                                jobo_name = configur_file["Email-Monitoring"]["Accounts"][em_add]["Job-Runs"][job_attrib][dependency_label]                                
+                                for each_job in jobo_name:
+                                    for counter in range(2,checksheet.max_row):
+                                        if each_job == checksheet.cell(row=counter, column=2).value:
+                                            if checksheet.cell(row=counter, column=5).value is not None:
+                                                temp_date = datetime.strptime(str(checksheet.cell(row=counter, column=5).value).split(".")[0], '%Y-%m-%d %H:%M:%S')
+                                                if let >= temp_date:
+                                                    checksheet["E"+str(counter)] = let
+                                            else:
+                                                checksheet["E"+str(counter)] = let
+                                            checksheet["F"+str(counter)] = datetime.now()
+                                            break
                                 gdw_runs = configur_file["Email-Monitoring"]["Accounts"][em_add]["Job-Runs"][job_attrib][dependency_label][job_name]
                                 __email__struct = {}
                                 for each_time in gdw_runs:
@@ -112,6 +133,15 @@ class Conf(object):
                                     __email__struct.update({"Process": each_time})
                                     __email__struct.update({"Average Start/End (Time)": gdw_runs[each_time]})
                                     __email__struct.update({"Average Start/End (Bool)": (let <= convert_datetime)})
+
+                                    intime = True                              
+                                    if let <= convert_datetime: intime = True
+                                    else: intime = False
+                                    if(sheet.cell(row=rowvalue, column=5).value != "1"):
+                                        sheet["E"+str(rowvalue)] = "1"
+                                    if(sheet.cell(row=rowvalue, column=6).value is None):
+                                        sheet["F"+str(rowvalue)] = str(intime)
+
                                     if not each_time == "SLA":
                                         if let <= convert_datetime:
                                             if each_time == "Start":
@@ -127,7 +157,8 @@ class Conf(object):
                                             else:
                                                 __email__struct.update({"SLA (Time)": gdw_runs[each_time]})                                  
                                                 __email__struct.update({"SLA": False})                                       
-                                        return (hierarchy_structures, __email__struct)
+                                        return (hierarchy_structures, __email__struct)                                    
+
                             except KeyError as e:
                                 print(e)
     
