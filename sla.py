@@ -116,7 +116,7 @@ for each_files in listdir(path=path_to_scan):
         work_sheet = work_book[sheets]
         excel_columns = content_checker.yield_excel_columns(work_sheet, work_sheet.max_column)
         if not content_checker.substantiate_email_contents(excel_columns):                                                    
-            continue        
+            continue
         key_count = 0
         for rows in progressbar(range(2, sum([work_sheet.max_row, 1])), "%sChecking Emails: " % (chr(32)*4), 20):
             try:
@@ -136,7 +136,7 @@ for each_files in listdir(path=path_to_scan):
                 if log[0] == 'Complete':
                     temp_array = []
                     # print(log[1])
-                    dict_logs = conf.validate_job_loads([dict(log[1]), config_file])
+                    dict_logs = conf.validate_job_loads([dict(log[1]), config_file, rows, work_book])
                     if dict_logs != None:
                         # print(dict_logs[0])
                         hierarchy.append(dict_logs[0])
@@ -172,7 +172,7 @@ for each_files in listdir(path=path_to_scan):
     missing_jobs = ""
 
     email_sys = Email(
-        recv_email="Troy.Cabrera@email.com",
+        recv_email="Norman.Palisoc@ingrammicro.com",
         report_csv="LOG_REPORTS_%s_%s.csv" % (path.splitext(each_files)[0], "".join(str(datetime.now()).split(" ")[0].split("-"))),
         late_jobs=late_jobs,
         missing_jobs=missing_jobs,
