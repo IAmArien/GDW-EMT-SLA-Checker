@@ -26,3 +26,10 @@ Below is also the type of report the script can generate in a <b>CSV</b> Format.
 
 ![dasdasdasd](https://user-images.githubusercontent.com/45601866/75427846-32bba400-5982-11ea-8b7c-48d2ced4f421.png)
 
+<b>Job Hierarchy</b><br/>
+Below is job hierarchy report the script can generate in a <b>TXT</b> format.<br/>
+<b>Figure 1.4</b>
+
+![ksadjkasldjkasd](https://user-images.githubusercontent.com/45601866/75500491-0f3b3c80-5a08-11ea-8324-3616d4971207.png)
+
+
