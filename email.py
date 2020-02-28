@@ -12,19 +12,17 @@ class Email(object):
         self.var_conf = var_conf
 
     def yield_missing_jobs(self, max_row: int, sheet: object) -> dict:
-        total_missing = self.var_conf["total_missing"]
-        missing_jobs = self.missing_jobs
         try:            
-            for row_counter in range(2, max_row):
+            for row_counter in range(2, max_row):                
                 sla_str = str(sheet.cell(row=row_counter,column=4).value)
                 let_str = str(sheet.cell(row=row_counter,column=5).value)
                 if '.' in let_str:
-                    let_str = let_str.split('.',1)[0]
+                    let_str = let_str.split('.',1)[0]                    
                 if let_str == "None":
-                    total_missing = total_missing + 1
-                    missing_jobs = missing_jobs + """
+                    self.var_conf["total_missing"] = self.var_conf["total_missing"] + 1
+                    self.missing_jobs = self.missing_jobs + """
                         <tr>
-                            <td>""" + str(total_missing) + """</td>
+                            <td>""" + str(self.var_conf["total_missing"]) + """</td>
                             <td>""" + str(sheet.cell(row=row_counter,column=2).value) + """</td>
                             <td>""" + str(sheet.cell(row=row_counter,column=3).value) + """</td>
                             <td>""" + str(sheet.cell(row=row_counter,column=4).value) + """</td>
@@ -36,18 +34,16 @@ class Email(object):
                     sla_column = (datetime.strptime(str(sla_str),'%H:%M:%S')).time()
                     now = datetime.now().time()
                     if ((let_column == datetime.now().date() and sla_column < now) or (let_column < datetime.now().date())):
-                        total_missing = total_missing + 1
-                        missing_jobs = missing_jobs + """
+                        self.var_conf["total_missing"] = self.var_conf["total_missing"] + 1
+                        self.missing_jobs = self.missing_jobs + """
                             <tr>
-                                <td>""" + str(total_missing) + """</td>
+                                <td>""" + str(self.var_conf["total_missing"]) + """</td>
                                 <td>""" + str(sheet.cell(row=row_counter,column=2).value) + """</td>
                                 <td>""" + str(sheet.cell(row=row_counter,column=3).value) + """</td>
                                 <td>""" + str(sheet.cell(row=row_counter,column=4).value) + """</td>
                                 <td>""" + str(sheet.cell(row=row_counter,column=5).value) + """</td>
                             </tr> 
                             """
-            self.missing_jobs = missing_jobs
-            self.var_conf["total_missing"] = total_missing
 
             return dict(missing_jobs=self.missing_jobs, total_missing=self.var_conf["total_missing"])
 
@@ -56,24 +52,23 @@ class Email(object):
             return False
     
     def yield_late_jobs(self, max_row: int, sheet: object, rows: int) -> dict:
-        total_fail = self.var_conf["total_fail"]
-        late_jobs = self.late_jobs
         try:
             while(rows <= max_row):
-                if(sheet.cell(row=max_row, column=5).value == "1"):
+                if(sheet.cell(row=rows, column=5).value == "1"):
                     excel_data = [
-                                    sheet.cell(row=rows, column=1).value,sheet.cell(row=rows, column=2).value,
+                                    sheet.cell(row=rows, column=1).value,
+                                    sheet.cell(row=rows, column=2).value,
                                     str(sheet.cell(row=rows, column=3).value).replace('T',' ').replace('+00:00',''),
                                     sheet.cell(row=rows, column=4).value,
                                     sheet.cell(row=rows, column=5).value,
                                     sheet.cell(row=rows, column=6).value
                                 ]
                     if(sheet.cell(row=rows, column=6).value == "False"):
-                        total_fail = total_fail + 1
-                        print(str(total_fail)+" jobs have been deleted from the monitoring list.")
-                        late_jobs = late_jobs + """
+                        self.var_conf["total_fail"] = self.var_conf["total_fail"] + 1
+                        print(str(self.var_conf["total_fail"])+" jobs have been deleted from the monitoring list.")
+                        self.late_jobs = self.late_jobs + """
                         <tr>
-                            <td>""" + str(total_fail) + """</td>
+                            <td>""" + str(self.var_conf["total_fail"]) + """</td>
                             <td>""" + excel_data[0] + """</td>
                             <td>""" + excel_data[2] + """</td>
                             <td>""" + excel_data[3] + """</td>
@@ -83,14 +78,11 @@ class Email(object):
                         self.var_conf["total_success"] = self.var_conf["total_success"] + 1
                     with open(r"Reports\%s" % (self.report_csv), 'a+', newline='') as write_obj:
                         csv_writer = writer(write_obj)
-                        csv_writer.write(excel_data)                        
+                        csv_writer.writerow(excel_data)                        
 
                     sheet.delete_rows(rows)                    
                 else:
-                    rows = rows + 1
-            
-            self.late_jobs = late_jobs
-            self.var_conf["total_fail"] = total_fail
+                    rows = rows + 1            
 
             return dict(late_jobs=self.late_jobs, total_fail=self.var_conf["total_fail"])
 
