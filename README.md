@@ -7,7 +7,7 @@ The script is capable of generating a reports that can be easily understand. Bel
 <ul>
   <li><b>CSV Report</b> - Containing the summary of all jobs executed in the SSH Server including the time the job started to run and its completion, also with the SLA. It shows a <b>True or False</b> format in checking of Starting and Completion of time of a specific job. The report also shows the emails the system receive.</li>
   <li><b>TXT LOG Report Format</b> - Contains a hierarchy of all jobs executed in the SSH Server including the email receive, the respective job name of each emails, key sources from which each jobs are fall under, and the over all hierarchical structures of executions in the SSH Server.</li>
-  <li>Email Report - The script will going to send an Email to the corporate containing the reports of each jobs executed in the SSH Server. The email displays the <b>late jobs</b> executed in the server and the <b>missing jobs</b> that is currently not executed yet.</li>
+  <li><b>Email Report</b> - The script will going to send an Email to the corporate containing the reports of each jobs executed in the SSH Server. The email displays the <b>late jobs</b> executed in the server and the <b>missing jobs</b> that is currently not executed yet.</li>
 </ul>
 
 <b>Email Monitoring Report</b><br/>
