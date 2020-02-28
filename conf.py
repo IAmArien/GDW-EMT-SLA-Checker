@@ -164,20 +164,58 @@ class Conf(object):
                                 print(e)
     
     def hierarchy_structures(self, hierarchy_list: list, main_job: str) -> Tree:
+        hierarchy_entity = {}
+        html_hierarchy = ""
         try:
             if not self.tree.contains(main_job):
                 self.tree.create_node(main_job, main_job)
+                hierarchy_entity.update({main_job: {}})
             try:
                 for each_h_list in hierarchy_list:
                     if not self.tree.contains(each_h_list[0]):
                         self.tree.create_node(each_h_list[0], each_h_list[0], parent=main_job)
+                        hierarchy_entity[main_job].update({each_h_list[0]: {}})
                     if not self.tree.contains("%s-%s" % (each_h_list[0], each_h_list[3])):
-                        self.tree.create_node(each_h_list[3], "%s-%s" % (each_h_list[0], each_h_list[3]), parent=each_h_list[0])
+                        self.tree.create_node(each_h_list[3], "%s-%s" % (each_h_list[0], each_h_list[3]), parent=each_h_list[0])                        
+                        hierarchy_entity[main_job][each_h_list[0]].update({each_h_list[3]: {}})
                     if not self.tree.contains("%s-%s-%s" % (each_h_list[0], each_h_list[3], each_h_list[1])):
-                        self.tree.create_node(each_h_list[1], "%s-%s-%s" % (each_h_list[0], each_h_list[3], each_h_list[1]), parent="%s-%s" % (each_h_list[0], each_h_list[3]))
+                        self.tree.create_node(each_h_list[1], "%s-%s-%s" % (each_h_list[0], each_h_list[3], each_h_list[1]), parent="%s-%s" % (each_h_list[0], each_h_list[3]))                        
+                        hierarchy_entity[main_job][each_h_list[0]][each_h_list[3]].update({each_h_list[1]: []})
                     self.tree.create_node(each_h_list[2], unique_id.uuid4(), parent="%s-%s-%s" % (each_h_list[0], each_h_list[3], each_h_list[1]))
+                    hierarchy_entity[main_job][each_h_list[0]][each_h_list[3]][each_h_list[1]].append(each_h_list[2])
             except Exception as e:
                 print(e)
         except Exception as e_1:
-            print(e_1)
+            print(e_1)  
+
+        for a in hierarchy_entity:
+            html_hierarchy = "%s%s" % (html_hierarchy, "<li>%s<ul>" % a)
+            for b in hierarchy_entity[a]:
+                html_hierarchy = "%s%s" % (html_hierarchy, "<li>%s<ul>" % b)
+                for c in hierarchy_entity[a][b]:
+                    html_hierarchy = "%s%s" % (html_hierarchy, "<li>%s<ul>" % c)
+                    for d in hierarchy_entity[a][b][c]:
+                        html_hierarchy = "%s%s" % (html_hierarchy, "<li>%s<ul>" % d)
+                        for e in hierarchy_entity[a][b][c][d]:
+                            html_hierarchy = "%s%s" % (html_hierarchy, "<li>%s</li>" % e)
+                        html_hierarchy = "%s%s" % (html_hierarchy, "</ul>")
+                        html_hierarchy = "%s%s" % (html_hierarchy, "</li>")
+                    html_hierarchy = "%s%s" % (html_hierarchy, "</ul>")
+                    html_hierarchy = "%s%s" % (html_hierarchy, "</li>")
+                html_hierarchy = "%s%s" % (html_hierarchy, "</ul>")
+                html_hierarchy = "%s%s" % (html_hierarchy, "</li>")
+            html_hierarchy = "%s%s" % (html_hierarchy, "</ul>")
+            html_hierarchy = "%s%s" % (html_hierarchy, "</li>")
+        
+        with open(r"..\struct\HTML\index.html", mode="r", encoding="utf-8") as html_file:
+            html_prt = str(html_file.read()).split("\n")
+            html_file.close()
+        
+        html_prt.insert(81, html_hierarchy)
+        struct_html = "\n".join(html_prt)
+
+        with open(r"..\struct\HTML\index.html", mode="w", encoding="utf-8") as html_file_1:
+            html_file_1.write(struct_html)
+            html_file_1.close()
+
         return self.tree
