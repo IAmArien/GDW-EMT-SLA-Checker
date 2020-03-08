@@ -1,4 +1,4 @@
-# Ingrammicro SLA Checker and Email Monitoring Tool
+# Ingram Micro SLA Checker and Email Monitoring Tool
 
 ![image](https://user-images.githubusercontent.com/45601866/75828876-d1635d00-5de7-11ea-998b-ffa14a1b8e4c.png)
 
